@@ -3,7 +3,7 @@ FROM ubuntu:jammy
 ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL C
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
 # Tar engine
     xz-utils \
 #C/C++ compiler & build tools
@@ -27,7 +27,9 @@ RUN apt-get update && apt-get install -y \
 # Linter
     shellcheck \
 # Other tools
-    tree 
+    tree \
+# Clean package manager
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN python3 -m pip install \
 # Build System
