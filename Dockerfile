@@ -1,16 +1,13 @@
 FROM ubuntu:jammy
 
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
-	&& localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
-ENV LANG en_US.utf8
+ENV LC_ALL C
 
 RUN apt-get update && apt-get install -y \
 # Tar engine
     xz-utils \
 #C/C++ compiler & build tools
     build-essential \
-    cmake \
 # Coverage report
     gcovr \
 # Version control
@@ -27,12 +24,20 @@ RUN apt-get update && apt-get install -y \
     ruby ruby-dev gem \
     python3 \
     python3-pip \
+# Linter
+    shellcheck \
 # Other tools
     tree 
 
 RUN python3 -m pip install \
+# Build System
+    cmake \
 # Cyclomatic complpexity analysis
     lizard \
+# Linter
+    pylint \
+# Formatter
+    black \
 # Dependencies
     jinja2
 
