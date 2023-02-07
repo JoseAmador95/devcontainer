@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
 # Debuging tools
     valgrind \
+    gdb \
 # Code check
     clang-format \
     clang-tidy \
