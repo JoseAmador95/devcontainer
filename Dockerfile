@@ -6,8 +6,11 @@ ENV LC_ALL C
 RUN apt-get update && apt-get install -y --no-install-recommends \
 # Tar engine
     xz-utils \
-#C/C++ compiler & build tools
+# C/C++ compiler & build tools
     build-essential \
+# ARM GCC Compiler
+    gcc-arm-none-eabi \
+    libnewlib-arm-none-eabi \
 # Coverage report
     gcovr \
 # Version control
@@ -35,6 +38,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN python3 -m pip install \
 # Build System
     cmake \
+    cmakelang \
 # Cyclomatic complpexity analysis
     lizard \
 # Linter
@@ -44,16 +48,6 @@ RUN python3 -m pip install \
 # Dependencies
     jinja2
 
-# ARM GCC Compiler
-ARG TOOLCHAIN_NAME=gcc-arm-11.2-2022.02-x86_64-arm-none-eabi
-ARG ARM_NONE_EABI_LINK=https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu/11.2-2022.02/binrel/${TOOLCHAIN_NAME}.tar.xz
-ARG TOOLCHAIN_DOWNLOAD_DIR=/tmp
-ADD ${ARM_NONE_EABI_LINK} ${TOOLCHAIN_DOWNLOAD_DIR}
-RUN tar xf ${TOOLCHAIN_DOWNLOAD_DIR}/${TOOLCHAIN_NAME}.tar.xz -C ${TOOLCHAIN_DOWNLOAD_DIR} --checkpoint=.10000
-RUN rm ${TOOLCHAIN_DOWNLOAD_DIR}/${TOOLCHAIN_NAME}.tar.xz
-RUN cp -r ${TOOLCHAIN_DOWNLOAD_DIR}/${TOOLCHAIN_NAME}/lib/* /lib/
-RUN cp -r ${TOOLCHAIN_DOWNLOAD_DIR}/${TOOLCHAIN_NAME}/bin/* /bin/
-RUN arm-none-eabi-gcc --version
-
+RUN gem install \
 # Unit test framework
-RUN gem install ceedling
+    ceedling
