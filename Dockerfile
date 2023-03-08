@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     xz-utils \
 # C/C++ compiler & build tools
     build-essential \
+    ninja-build \
 # ARM GCC Compiler
     gcc-arm-none-eabi \
     libnewlib-arm-none-eabi \
