@@ -1,4 +1,4 @@
-FROM ubuntu:jammy
+FROM ubuntu:rolling
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL C
