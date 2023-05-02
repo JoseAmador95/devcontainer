@@ -28,7 +28,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Backend for other tools
     ruby ruby-dev gem \
     python3 \
-    python3-pip \
+    python3-pipx \
 # Linter
     shellcheck \
 # Other tools
