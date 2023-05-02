@@ -36,7 +36,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Clean package manager
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN pipx install \
+RUN pipx install pip && pipx inject \
 # Build System
     cmake \
     cmakelang \
