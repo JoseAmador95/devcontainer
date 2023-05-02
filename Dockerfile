@@ -2,6 +2,7 @@ FROM ubuntu:rolling
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL C
+ENV PIPX_BIN_DIR=/usr/local/bin
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 # Tar engine
@@ -36,18 +37,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Clean package manager
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN pipx install ptpython && pipx inject \
+RUN pipx --version \
 # Build System
-    cmake \
-    cmakelang \
+&& pipx install  cmake \
+&& pipx install  cmakelang \
 # Cyclomatic complpexity analysis
-    lizard \
+&& pipx install  lizard \
 # Linter
-    pylint \
+&& pipx install  pylint \
 # Formatter
-    black \
+&& pipx install  black \
 # Type hint check
-    mypy
+&& pipx install  mypy
+
+RUN for package in ${PY_PACKAGES}; do pipx install ${package}; done
 
 RUN gem install \
 # Unit test framework
