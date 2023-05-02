@@ -28,7 +28,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Backend for other tools
     ruby ruby-dev gem \
     python3 \
-    python3-pipx \
+    pipx \
 # Linter
     shellcheck \
 # Other tools
@@ -36,7 +36,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Clean package manager
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m pipx install \
+RUN pipx install \
 # Build System
     cmake \
     cmakelang \
