@@ -36,7 +36,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Clean package manager
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m pip install \
+RUN python3 -m pipx install \
 # Build System
     cmake \
     cmakelang \
@@ -46,8 +46,8 @@ RUN python3 -m pip install \
     pylint \
 # Formatter
     black \
-# Dependencies
-    jinja2
+# Type hint check
+    mypy
 
 RUN gem install \
 # Unit test framework
