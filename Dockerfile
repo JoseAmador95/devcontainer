@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     xz-utils \
 # C/C++ compiler & build tools
     ninja-build \
+    llvm \
     clang \
 # ARM GCC Compiler
     gcc-arm-none-eabi \
