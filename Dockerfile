@@ -1,4 +1,4 @@
-FROM ubuntu:rolling
+FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL C
@@ -8,8 +8,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Tar engine
     xz-utils \
 # C/C++ compiler & build tools
-    build-essential \
     ninja-build \
+    clang \
 # ARM GCC Compiler
     gcc-arm-none-eabi \
     libnewlib-arm-none-eabi \
@@ -55,3 +55,4 @@ RUN for package in ${PY_PACKAGES}; do pipx install ${package}; done
 RUN gem install \
 # Unit test framework
     ceedling
+
