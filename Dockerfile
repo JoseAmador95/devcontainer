@@ -24,6 +24,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Code check
     clang-format \
     clang-tidy \
+    uncrustify \
 # Documentation generation
     doxygen \
     graphviz \
@@ -37,6 +38,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     tree \
 # Clean package manager
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Disguise Clang as GCC
+RUN ln -s /usr/bin/clang /usr/bin/gcc \
+&& echo "/usr/bin/llvm-cov gcov $@" > /usr/bin/gcov
 
 RUN pipx --version \
 # Build System
