@@ -24,7 +24,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Code check
     clang-format \
     clang-tidy \
-    uncrustify \
 # Documentation generation
     doxygen \
     graphviz \
@@ -55,8 +54,6 @@ RUN pipx --version \
 && pipx install  black \
 # Type hint check
 && pipx install  mypy
-
-RUN for package in ${PY_PACKAGES}; do pipx install ${package}; done
 
 RUN gem install \
 # Unit test framework
