@@ -55,7 +55,7 @@ RUN pipx --version \
 # Type hint check
 && pipx install  mypy
 
-RUN gem install \
+RUN gem install --pre \
 # Unit test framework
     ceedling
 
