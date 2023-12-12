@@ -28,7 +28,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     doxygen \
     graphviz \
 # Backend for other tools
-    ruby ruby-dev gem \
     python3 \
     pipx \
 # Linter
@@ -46,16 +45,4 @@ RUN pipx --version \
 # Build System
 && pipx install  cmake \
 && pipx install  cmakelang \
-# Cyclomatic complpexity analysis
-&& pipx install  lizard \
-# Linter
-&& pipx install  pylint \
-# Formatter
-&& pipx install  black \
-# Type hint check
-&& pipx install  mypy
-
-RUN gem install --pre \
-# Unit test framework
-    ceedling
 
