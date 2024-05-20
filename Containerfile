@@ -1,16 +1,22 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
+
+ARG LLVM_VERSION=18
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL C
 ENV PIPX_BIN_DIR=/usr/local/bin
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Update Ubuntu packages
+RUN apt-get update \
+ && apt-get upgrade -y --no-install-recommends \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends \
 # Tar engine
     xz-utils \
 # C/C++ compiler & build tools
     ninja-build \
-    llvm \
-    clang \
+    build-essential \
 # ARM GCC Compiler
     gcc-arm-none-eabi \
     libnewlib-arm-none-eabi \
@@ -21,9 +27,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Debuging tools
     valgrind \
     gdb \
-# Code check
-    clang-format \
-    clang-tidy \
 # Documentation generation
     doxygen \
     graphviz \
@@ -37,9 +40,23 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Clean package manager
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Disguise Clang as GCC
-RUN ln -s /usr/bin/clang /usr/bin/gcc \
-&& echo "/usr/bin/llvm-cov gcov $@" > /usr/bin/gcov
+RUN apt-get update && apt-get install -y --no-install-recommends \
+# LLVM dependencies
+    lsb-release \
+    wget \
+    software-properties-common \
+    gnupg \
+# Clean package manager
+    && apt-get clean && rm -rf /var/lib/apt/lists/* \
+# Install LLVM
+    && wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh \
+    && bash /tmp/llvm.sh ${LLVM_VERSION} all \
+    && ln -s /usr/bin/clang-${LLVM_VERSION} /usr/local/bin/clang \
+    && ln -s /usr/bin/clang++-${LLVM_VERSION} /usr/local/bin/clang++ \
+    && ln -s /usr/bin/clang-format-${LLVM_VERSION} /usr/local/bin/clang-format \
+    && ln -s /usr/bin/clang-tidy-${LLVM_VERSION} /usr/local/bin/clang-tidy \
+    && ln -s /usr/bin/clangd-${LLVM_VERSION} /usr/local/bin/clangd \
+    ;
 
 RUN pipx --version \
 # Build System
