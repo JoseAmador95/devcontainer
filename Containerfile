@@ -6,11 +6,6 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL C
 ENV PIPX_BIN_DIR=/usr/local/bin
 
-# Update Ubuntu packages
-RUN apt-get update && \
-    apt-get upgrade -y --no-install-recommends && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*                   
-
 RUN apt-get update && apt-get install -y --no-install-recommends \
     # Tar engine
     xz-utils \
