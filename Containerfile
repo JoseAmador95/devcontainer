@@ -61,7 +61,10 @@ RUN pipx --version && \
     pipx install cmakelang \
     ;
 
-RUN apt-get update && apt-get install -y --no-install-recommends ruby && \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ruby \
+    ruby-dev \
+    && \
     wget -q -O /tmp/ceedling.gem "https://github.com/ThrowTheSwitch/Ceedling/releases/download/0.32.0-eadc1b0/ceedling-0.32.0-eadc1b0.gem" && \
     gem install unicode-display_width constructor deep_merge thor && \
     gem install --local /tmp/ceedling.gem \
