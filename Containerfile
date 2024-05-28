@@ -46,7 +46,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     # Install LLVM
-    wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh && \
+    wget -q -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh && \
     bash /tmp/llvm.sh ${LLVM_VERSION} all && \
     ln -s /usr/bin/clang-${LLVM_VERSION} /usr/local/bin/clang && \
     ln -s /usr/bin/clang++-${LLVM_VERSION} /usr/local/bin/clang++ && \
@@ -62,7 +62,10 @@ RUN pipx --version && \
     ;
 
 RUN apt-get update && apt-get install -y --no-install-recommends ruby && \
-    wget -O /tmp/ceedling.gem "https://github.com/ThrowTheSwitch/Ceedling/releases/download/0.32.0-eadc1b0/ceedling-0.32.0-eadc1b0.gem" && \
+    wget -q -O /tmp/ceedling.gem "https://github.com/ThrowTheSwitch/Ceedling/releases/download/0.32.0-eadc1b0/ceedling-0.32.0-eadc1b0.gem" && \
     gem install unicode-display_width constructor deep_merge thor && \
-    gem install --local /tmp/ceedling.gem
+    gem install --local /tmp/ceedling.gem \
+    # Clean package manager
+    && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
