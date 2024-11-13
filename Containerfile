@@ -11,12 +11,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     xz-utils \
     # C/C++ compiler & build tools
     ninja-build \
-    build-essential \
     # ARM GCC Compiler
     gcc-arm-none-eabi \
     libnewlib-arm-none-eabi \
     # Coverage report
-    gcovr \
     # Version control
     git \
     # Debuging tools
@@ -65,7 +63,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ruby \
     ruby-dev \
     && \
-    wget -q -O /tmp/ceedling.gem "https://github.com/ThrowTheSwitch/Ceedling/releases/download/0.32.0-eadc1b0/ceedling-0.32.0-eadc1b0.gem" && \
+    wget -q -O /tmp/ceedling.gem "https://github.com/ThrowTheSwitch/Ceedling/releases/download/1.0.0-f899db8/ceedling-1.0.0-f899db8.gem" && \
     gem install unicode-display_width constructor deep_merge thor && \
     gem install --local /tmp/ceedling.gem \
     # Clean package manager
