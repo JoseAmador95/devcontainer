@@ -2,8 +2,8 @@ FROM ubuntu:24.04
 
 ARG LLVM_VERSION=18
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV LC_ALL C
+ENV DEBIAN_FRONTEND=noninteractive
+ENV LC_ALL=C
 ENV PIPX_BIN_DIR=/usr/local/bin
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
